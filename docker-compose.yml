@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  database:
+    image: mongo:latest
+    container_name: ems_mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  backend:
+    build: ./backend
+    container_name: ems_backend
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - MONGO_URI=mongodb://database:27017/employee_management
+      - JWT_SECRET=supersecretkeyforems12345
+    depends_on:
+      - database
+
+  frontend:
+    build: ./frontend
+    container_name: ems_frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  mongo_data:
