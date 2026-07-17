@@ -24,7 +24,7 @@ export const OrgTree: React.FC = () => {
   const fetchTree = async () => {
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:5000/api/organization/tree', {
+      const res = await fetch('/api/organization/tree', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -61,7 +61,7 @@ export const OrgTree: React.FC = () => {
         >
           {node.profileImage ? (
             <img
-              src={`http://localhost:5000${node.profileImage}`}
+              src={`${node.profileImage}`}
               alt={node.name}
               className="org-tree-card-img"
             />
@@ -132,7 +132,7 @@ export const OrgTree: React.FC = () => {
             <div style={{ textAlign: 'center', borderBottom: '1px solid var(--border-color)', paddingBottom: '1.25rem' }}>
               {selectedNode.profileImage ? (
                 <img
-                  src={`http://localhost:5000${selectedNode.profileImage}`}
+                  src={`${selectedNode.profileImage}`}
                   alt={selectedNode.name}
                   style={{ width: '80px', height: '80px', borderRadius: '50%', objectFit: 'cover', border: '3px solid var(--primary)', marginBottom: '0.75rem' }}
                 />

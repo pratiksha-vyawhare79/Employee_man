@@ -39,7 +39,7 @@ export const CSVImportModal: React.FC<CSVImportModalProps> = ({ onClose, onSucce
     formData.append('file', file);
 
     try {
-      const res = await fetch('http://localhost:5000/api/employees/import', {
+      const res = await fetch('/api/employees/import', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,

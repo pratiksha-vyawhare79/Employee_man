@@ -137,7 +137,7 @@ export const Sidebar: React.FC = () => {
         }}>
           {user.profileImage ? (
             <img
-              src={`http://localhost:5000${user.profileImage}`}
+              src={`${user.profileImage}`}
               alt={user.name}
               style={{
                 width: '40px',

@@ -48,7 +48,7 @@ export const Dashboard: React.FC = () => {
     const fetchDashboardData = async () => {
       try {
         // Fetch all non-deleted employees (limit 1000) to compute stats on client
-        const res = await fetch('http://localhost:5000/api/employees?limit=1000', {
+        const res = await fetch('/api/employees?limit=1000', {
           headers: {
             Authorization: `Bearer ${token}`,
           },

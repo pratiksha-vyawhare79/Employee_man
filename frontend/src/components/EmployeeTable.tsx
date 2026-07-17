@@ -66,7 +66,7 @@ export const EmployeeTable: React.FC = () => {
         sortOrder,
       });
 
-      const res = await fetch(`http://localhost:5000/api/employees?${queryParams}`, {
+      const res = await fetch(`/api/employees?${queryParams}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -113,7 +113,7 @@ export const EmployeeTable: React.FC = () => {
       if (!viewReporteesId) return;
       setLoadingReportees(true);
       try {
-        const res = await fetch(`http://localhost:5000/api/employees/${viewReporteesId}/reportees`, {
+        const res = await fetch(`/api/employees/${viewReporteesId}/reportees`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -138,7 +138,7 @@ export const EmployeeTable: React.FC = () => {
     }
 
     try {
-      const res = await fetch(`http://localhost:5000/api/employees/${id}`, {
+      const res = await fetch(`/api/employees/${id}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -296,7 +296,7 @@ export const EmployeeTable: React.FC = () => {
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                         {emp.profileImage ? (
                           <img
-                            src={`http://localhost:5000${emp.profileImage}`}
+                            src={`${emp.profileImage}`}
                             alt={emp.name}
                             style={{ width: '28px', height: '28px', borderRadius: '50%', objectFit: 'cover' }}
                           />
@@ -467,7 +467,7 @@ export const EmployeeTable: React.FC = () => {
                 }}>
                   {rep.profileImage ? (
                     <img
-                      src={`http://localhost:5000${rep.profileImage}`}
+                      src={`${rep.profileImage}`}
                       alt={rep.name}
                       style={{ width: '32px', height: '32px', borderRadius: '50%', objectFit: 'cover' }}
                     />

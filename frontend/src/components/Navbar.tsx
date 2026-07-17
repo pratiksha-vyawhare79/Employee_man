@@ -60,7 +60,7 @@ export const Navbar: React.FC<NavbarProps> = ({ title, onMenuClick }) => {
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           {user.profileImage ? (
             <img
-              src={`http://localhost:5000${user.profileImage}`}
+              src={`${user.profileImage}`}
               alt={user.name}
               style={{
                 width: '32px',

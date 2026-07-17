@@ -42,7 +42,7 @@ export const EmployeeForm: React.FC<EmployeeFormProps> = ({ employeeIdToEdit, on
   useEffect(() => {
     const fetchManagers = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/employees?limit=1000', {
+        const res = await fetch('/api/employees?limit=1000', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -70,7 +70,7 @@ export const EmployeeForm: React.FC<EmployeeFormProps> = ({ employeeIdToEdit, on
 
       setLoading(true);
       try {
-        const res = await fetch(`http://localhost:5000/api/employees/${employeeIdToEdit}`, {
+        const res = await fetch(`/api/employees/${employeeIdToEdit}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -94,7 +94,7 @@ export const EmployeeForm: React.FC<EmployeeFormProps> = ({ employeeIdToEdit, on
           }
 
           if (data.profileImage) {
-            setImagePreview(`http://localhost:5000${data.profileImage}`);
+            setImagePreview(`${data.profileImage}`);
           }
         } else {
           setErrorMsg('Failed to load employee details.');
@@ -198,8 +198,8 @@ export const EmployeeForm: React.FC<EmployeeFormProps> = ({ employeeIdToEdit, on
 
     try {
       const url = isEditMode
-        ? `http://localhost:5000/api/employees/${employeeIdToEdit}`
-        : 'http://localhost:5000/api/employees';
+        ? `/api/employees/${employeeIdToEdit}`
+        : '/api/employees';
 
       const method = isEditMode ? 'PUT' : 'POST';
 
