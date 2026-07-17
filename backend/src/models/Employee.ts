@@ -1,4 +1,4 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model, Document, Types } from 'mongoose';
 
 export interface IEmployee extends Document {
   employeeId: string;
@@ -11,7 +11,7 @@ export interface IEmployee extends Document {
   joiningDate: Date;
   status: 'Active' | 'Inactive';
   role: 'Super Admin' | 'HR Manager' | 'Employee';
-  reportingManager?: Schema.Types.ObjectId | IEmployee | null;
+  reportingManager?: Types.ObjectId | IEmployee | null;
   profileImage?: string;
   password?: string;
   isDeleted: boolean;
