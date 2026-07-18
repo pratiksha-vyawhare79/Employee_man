@@ -2,7 +2,9 @@ import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import path from 'path';
 import dotenv from 'dotenv';
+import bcrypt from 'bcryptjs';
 import { connectDB } from './config/db';
+import { Employee } from './models/Employee';
 import authRoutes from './routes/authRoutes';
 import employeeRoutes from './routes/employeeRoutes';
 
@@ -47,8 +49,42 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   });
 });
 
+// Auto-seed Super Admin if not exists
+const autoSeedAdmin = async () => {
+  try {
+    const adminExists = await Employee.findOne({ role: 'Super Admin', isDeleted: false });
+    if (!adminExists) {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash('Password123', salt);
+      await Employee.create({
+        employeeId: 'EMP-001',
+        name: 'System Administrator',
+        email: 'admin@ems.com',
+        phone: '+1234567890',
+        department: 'Administration',
+        designation: 'Super Admin',
+        salary: 150000,
+        joiningDate: new Date('2026-01-01'),
+        status: 'Active',
+        role: 'Super Admin',
+        reportingManager: null,
+        profileImage: '',
+        password: hashedPassword,
+        isDeleted: false,
+      });
+      console.log('Super Admin auto-seeded: admin@ems.com / Password123');
+    } else {
+      console.log('Super Admin already exists, skipping auto-seed.');
+    }
+  } catch (err) {
+    console.error('Auto-seed error:', err);
+  }
+};
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT} in ${process.env.NODE_ENV || 'development'} mode`);
+  // Auto-seed admin user if not exists
+  setTimeout(autoSeedAdmin, 2000);
 });
