@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
+import { API_BASE_URL } from '../config';
 
 export interface User {
   _id: string;
@@ -66,7 +67,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const fetchUserData = async (authToken: string) => {
     try {
-      const response = await fetch('/api/auth/me', {
+      const response = await fetch(`${API_BASE_URL}/api/auth/me`, {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },
@@ -86,7 +87,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  const login = (email: string, authToken: string, loggedUser: User) => {
+  const login = (_email: string, authToken: string, loggedUser: User) => {
     localStorage.setItem('ems_token', authToken);
     setToken(authToken);
     setUser(loggedUser);

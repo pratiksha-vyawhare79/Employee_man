@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
+import { API_BASE_URL } from '../config';
 import { X, Upload, CheckCircle, AlertTriangle } from 'lucide-react';
 
 interface CSVImportModalProps {
@@ -39,7 +40,7 @@ export const CSVImportModal: React.FC<CSVImportModalProps> = ({ onClose, onSucce
     formData.append('file', file);
 
     try {
-      const res = await fetch('/api/employees/import', {
+      const res = await fetch(`${API_BASE_URL}/api/employees/import`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,

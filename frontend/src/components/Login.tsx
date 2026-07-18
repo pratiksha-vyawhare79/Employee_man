@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth, type User } from '../hooks/useAuth';
+import { API_BASE_URL } from '../config';
 import { LogIn, AlertCircle } from 'lucide-react';
 
 export const Login: React.FC = () => {
@@ -20,7 +21,7 @@ export const Login: React.FC = () => {
     setErrorMsg(null);
 
     try {
-      const res = await fetch('/api/auth/login', {
+      const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

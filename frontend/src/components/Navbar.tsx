@@ -1,6 +1,7 @@
 import React from 'react';
 import { useAuth } from '../hooks/useAuth';
-import { Menu, ShieldAlert, User as UserIcon } from 'lucide-react';
+import { getImageUrl } from '../config';
+import { Menu, User as UserIcon } from 'lucide-react';
 
 interface NavbarProps {
   title: string;
@@ -60,7 +61,7 @@ export const Navbar: React.FC<NavbarProps> = ({ title, onMenuClick }) => {
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           {user.profileImage ? (
             <img
-              src={`${user.profileImage}`}
+              src={getImageUrl(user.profileImage)}
               alt={user.name}
               style={{
                 width: '32px',

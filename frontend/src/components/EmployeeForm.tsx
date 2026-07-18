@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth, type User } from '../hooks/useAuth';
-import { X, Upload, CheckCircle, AlertCircle } from 'lucide-react';
+import { useAuth } from '../hooks/useAuth';
+import { API_BASE_URL, getImageUrl } from '../config';
+import { X, Upload, AlertCircle } from 'lucide-react';
 
 interface EmployeeFormProps {
   employeeIdToEdit?: string | null;
@@ -42,7 +43,7 @@ export const EmployeeForm: React.FC<EmployeeFormProps> = ({ employeeIdToEdit, on
   useEffect(() => {
     const fetchManagers = async () => {
       try {
-        const res = await fetch('/api/employees?limit=1000', {
+        const res = await fetch(`${API_BASE_URL}/api/employees?limit=1000`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -70,7 +71,7 @@ export const EmployeeForm: React.FC<EmployeeFormProps> = ({ employeeIdToEdit, on
 
       setLoading(true);
       try {
-        const res = await fetch(`/api/employees/${employeeIdToEdit}`, {
+        const res = await fetch(`${API_BASE_URL}/api/employees/${employeeIdToEdit}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -198,8 +199,8 @@ export const EmployeeForm: React.FC<EmployeeFormProps> = ({ employeeIdToEdit, on
 
     try {
       const url = isEditMode
-        ? `/api/employees/${employeeIdToEdit}`
-        : '/api/employees';
+        ? `${API_BASE_URL}/api/employees/${employeeIdToEdit}`
+        : `${API_BASE_URL}/api/employees`;
 
       const method = isEditMode ? 'PUT' : 'POST';
 
@@ -263,7 +264,7 @@ export const EmployeeForm: React.FC<EmployeeFormProps> = ({ employeeIdToEdit, on
               <div style={{ position: 'relative', width: '80px', height: '80px' }}>
                 {imagePreview ? (
                   <img
-                    src={imagePreview}
+                    src={getImageUrl(imagePreview)}
                     alt="Preview"
                     style={{ width: '80px', height: '80px', borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--border-color)' }}
                   />

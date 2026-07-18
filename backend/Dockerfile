@@ -13,5 +13,5 @@ COPY package*.json ./
 RUN npm install --only=production
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/.env* ./
-EXPOSE 5000
+EXPOSE 10000
 CMD ["npm", "start"]

@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import { getImageUrl } from '../config';
 import {
   LayoutDashboard,
   Users,
@@ -137,7 +138,7 @@ export const Sidebar: React.FC = () => {
         }}>
           {user.profileImage ? (
             <img
-              src={`${user.profileImage}`}
+              src={getImageUrl(user.profileImage)}
               alt={user.name}
               style={{
                 width: '40px',

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
+import { API_BASE_URL, getImageUrl } from '../config';
 import { EmployeeForm } from './EmployeeForm';
 import { CSVImportModal } from './CSVImportModal';
 import {
   Search,
-  Filter,
   ChevronLeft,
   ChevronRight,
   UserPlus,
@@ -13,7 +13,7 @@ import {
   Trash2,
   GitCommit,
   UserCheck,
-  ChevronDown
+  X
 } from 'lucide-react';
 
 export const EmployeeTable: React.FC = () => {
@@ -66,7 +66,7 @@ export const EmployeeTable: React.FC = () => {
         sortOrder,
       });
 
-      const res = await fetch(`/api/employees?${queryParams}`, {
+      const res = await fetch(`${API_BASE_URL}/api/employees?${queryParams}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -113,7 +113,7 @@ export const EmployeeTable: React.FC = () => {
       if (!viewReporteesId) return;
       setLoadingReportees(true);
       try {
-        const res = await fetch(`/api/employees/${viewReporteesId}/reportees`, {
+        const res = await fetch(`${API_BASE_URL}/api/employees/${viewReporteesId}/reportees`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -138,7 +138,7 @@ export const EmployeeTable: React.FC = () => {
     }
 
     try {
-      const res = await fetch(`/api/employees/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/employees/${id}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -296,7 +296,7 @@ export const EmployeeTable: React.FC = () => {
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                         {emp.profileImage ? (
                           <img
-                            src={`${emp.profileImage}`}
+                            src={getImageUrl(emp.profileImage)}
                             alt={emp.name}
                             style={{ width: '28px', height: '28px', borderRadius: '50%', objectFit: 'cover' }}
                           />
@@ -467,7 +467,7 @@ export const EmployeeTable: React.FC = () => {
                 }}>
                   {rep.profileImage ? (
                     <img
-                      src={`${rep.profileImage}`}
+                      src={getImageUrl(rep.profileImage)}
                       alt={rep.name}
                       style={{ width: '32px', height: '32px', borderRadius: '50%', objectFit: 'cover' }}
                     />

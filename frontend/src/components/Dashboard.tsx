@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
+import { API_BASE_URL } from '../config';
 import {
   Users,
   UserCheck,
@@ -15,7 +16,6 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
   PieChart,
   Pie,
@@ -48,7 +48,7 @@ export const Dashboard: React.FC = () => {
     const fetchDashboardData = async () => {
       try {
         // Fetch all non-deleted employees (limit 1000) to compute stats on client
-        const res = await fetch('/api/employees?limit=1000', {
+        const res = await fetch(`${API_BASE_URL}/api/employees?limit=1000`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -300,7 +300,7 @@ export const Dashboard: React.FC = () => {
                         paddingAngle={5}
                         dataKey="value"
                       >
-                        {statusData.map((entry, index) => (
+                        {statusData.map((_, index) => (
                           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}
                       </Pie>

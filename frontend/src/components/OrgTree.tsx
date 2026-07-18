@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
-import { GitFork, User, Award, Layers } from 'lucide-react';
+import { API_BASE_URL, getImageUrl } from '../config';
+import { GitFork, User } from 'lucide-react';
 
 interface OrgNode {
   _id: string;
@@ -24,7 +25,7 @@ export const OrgTree: React.FC = () => {
   const fetchTree = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/organization/tree', {
+      const res = await fetch(`${API_BASE_URL}/api/organization/tree`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -61,7 +62,7 @@ export const OrgTree: React.FC = () => {
         >
           {node.profileImage ? (
             <img
-              src={`${node.profileImage}`}
+              src={getImageUrl(node.profileImage)}
               alt={node.name}
               className="org-tree-card-img"
             />
@@ -132,7 +133,7 @@ export const OrgTree: React.FC = () => {
             <div style={{ textAlign: 'center', borderBottom: '1px solid var(--border-color)', paddingBottom: '1.25rem' }}>
               {selectedNode.profileImage ? (
                 <img
-                  src={`${selectedNode.profileImage}`}
+                  src={getImageUrl(selectedNode.profileImage)}
                   alt={selectedNode.name}
                   style={{ width: '80px', height: '80px', borderRadius: '50%', objectFit: 'cover', border: '3px solid var(--primary)', marginBottom: '0.75rem' }}
                 />
